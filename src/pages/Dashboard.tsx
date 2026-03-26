@@ -13,6 +13,10 @@ import {
 import * as summaryService from '../services/summary';
 import type { Summary } from '../services/summary';
 import { getErrorMessage } from '../utils/getErrorMessage';
+import PageHead from '../components/PageHead';
+import PageTransition from '../components/PageTransition';
+import AnimatedCard from '../components/AnimatedCard';
+import { useTheme } from '../hooks/useTheme';
 
 const COLORS = [
   '#6366f1',
@@ -29,6 +33,7 @@ export default function Dashboard() {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { theme } = useTheme();
 
   const loadData = useCallback(async () => {
     try {
@@ -52,10 +57,19 @@ export default function Dashboard() {
     }).format(value);
   }
 
+  const tooltipStyle = {
+    backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+    border: `1px solid ${theme === 'dark' ? '#374151' : '#e5e7eb'}`,
+    borderRadius: '8px',
+    color: theme === 'dark' ? '#f3f4f6' : '#111827',
+  };
+
+  const axisColor = theme === 'dark' ? '#9ca3af' : '#6b7280';
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-gray-400">Carregando...</p>
+        <p className="text-gray-500 dark:text-gray-400">Carregando...</p>
       </div>
     );
   }
@@ -71,8 +85,10 @@ export default function Dashboard() {
   if (!summary || summary.transactionCount === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-400 text-lg">Nenhum dado para exibir</p>
-        <p className="text-gray-500 mt-1">
+        <p className="text-gray-500 dark:text-gray-400 text-lg">
+          Nenhum dado para exibir
+        </p>
+        <p className="text-gray-400 dark:text-gray-500 mt-1">
           Adicione transações para ver o resumo
         </p>
       </div>
@@ -80,10 +96,7 @@ export default function Dashboard() {
   }
 
   const pieData = Object.entries(summary.expensesByCategory).map(
-    ([name, value]) => ({
-      name,
-      value,
-    }),
+    ([name, value]) => ({ name, value }),
   );
 
   const barData = [
@@ -92,126 +105,140 @@ export default function Dashboard() {
   ];
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Dashboard</h1>
+    <PageTransition>
+      <div>
+        <PageHead title="Dashboard" description="Resumo das suas finanças" />
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          Dashboard
+        </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="bg-gray-800 rounded-xl p-5">
-          <p className="text-gray-400 text-sm mb-1">Receitas</p>
-          <p className="text-2xl font-bold text-green-400">
-            {formatCurrency(summary.totalIncome)}
-          </p>
-        </div>
-
-        <div className="bg-gray-800 rounded-xl p-5">
-          <p className="text-gray-400 text-sm mb-1">Despesas</p>
-          <p className="text-2xl font-bold text-red-400">
-            {formatCurrency(summary.totalExpense)}
-          </p>
-        </div>
-
-        <div className="bg-gray-800 rounded-xl p-5">
-          <p className="text-gray-400 text-sm mb-1">Saldo</p>
-          <p
-            className={`text-2xl font-bold ${
-              summary.balance >= 0 ? 'text-green-400' : 'text-red-400'
-            }`}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <AnimatedCard
+            delay={0}
+            className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm transition-colors"
           >
-            {formatCurrency(summary.balance)}
-          </p>
-        </div>
-      </div>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">
+              Receitas
+            </p>
+            <p className="text-2xl font-bold text-green-500 dark:text-green-400">
+              {formatCurrency(summary.totalIncome)}
+            </p>
+          </AnimatedCard>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-gray-800 rounded-xl p-5">
-          <h2 className="text-lg font-semibold text-white mb-4">
-            Receitas vs Despesas
-          </h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={barData}>
-              <XAxis
-                dataKey="name"
-                tick={{ fill: '#9ca3af', fontSize: 13 }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fill: '#9ca3af', fontSize: 12 }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#1f2937',
-                  border: '1px solid #374151',
-                  borderRadius: '8px',
-                  color: '#f3f4f6',
-                }}
-                formatter={(value) => formatCurrency(Number(value))}
-              />
-              <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                {barData.map((entry, index) => (
-                  <Cell key={index} fill={entry.color} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          <AnimatedCard
+            delay={0.1}
+            className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm transition-colors"
+          >
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">
+              Despesas
+            </p>
+            <p className="text-2xl font-bold text-red-500 dark:text-red-400">
+              {formatCurrency(summary.totalExpense)}
+            </p>
+          </AnimatedCard>
+
+          <AnimatedCard
+            delay={0.2}
+            className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm transition-colors"
+          >
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">
+              Saldo
+            </p>
+            <p
+              className={`text-2xl font-bold ${
+                summary.balance >= 0
+                  ? 'text-green-500 dark:text-green-400'
+                  : 'text-red-500 dark:text-red-400'
+              }`}
+            >
+              {formatCurrency(summary.balance)}
+            </p>
+          </AnimatedCard>
         </div>
 
-        {pieData.length > 0 && (
-          <div className="bg-gray-800 rounded-xl p-5">
-            <h2 className="text-lg font-semibold text-white mb-4">
-              Despesas por Categoria
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm transition-colors">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              Receitas vs Despesas
             </h2>
             <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie
-                  data={pieData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={55}
-                  outerRadius={90}
-                  paddingAngle={3}
-                  dataKey="value"
-                >
-                  {pieData.map((_entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
+              <BarChart data={barData}>
+                <XAxis
+                  dataKey="name"
+                  tick={{ fill: axisColor, fontSize: 13 }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <YAxis
+                  tick={{ fill: axisColor, fontSize: 12 }}
+                  axisLine={false}
+                  tickLine={false}
+                />
                 <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#1f2937',
-                    border: '1px solid #374151',
-                    borderRadius: '8px',
-                    color: '#f3f4f6',
-                  }}
+                  contentStyle={tooltipStyle}
                   formatter={(value) => formatCurrency(Number(value))}
                 />
-              </PieChart>
+                <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                  {barData.map((entry, index) => (
+                    <Cell key={index} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
             </ResponsiveContainer>
-            <div className="flex flex-wrap gap-3 mt-4 justify-center">
-              {pieData.map((entry, index) => (
-                <div key={entry.name} className="flex items-center gap-2">
-                  <div
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                  />
-                  <span className="text-gray-400 text-xs">{entry.name}</span>
-                </div>
-              ))}
-            </div>
           </div>
-        )}
-      </div>
 
-      <div className="mt-6 bg-gray-800 rounded-xl p-5">
-        <p className="text-gray-400 text-sm">
-          Total de transações:{' '}
-          <span className="text-white font-medium">
-            {summary.transactionCount}
-          </span>
-        </p>
+          {pieData.length > 0 && (
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm transition-colors">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Despesas por Categoria
+              </h2>
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={55}
+                    outerRadius={90}
+                    paddingAngle={3}
+                    dataKey="value"
+                  >
+                    {pieData.map((_entry, index) => (
+                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    contentStyle={tooltipStyle}
+                    formatter={(value) => formatCurrency(Number(value))}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="flex flex-wrap gap-3 mt-4 justify-center">
+                {pieData.map((entry, index) => (
+                  <div key={entry.name} className="flex items-center gap-2">
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                    />
+                    <span className="text-gray-500 dark:text-gray-400 text-xs">
+                      {entry.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm transition-colors">
+          <p className="text-gray-500 dark:text-gray-400 text-sm">
+            Total de transações:{' '}
+            <span className="text-gray-900 dark:text-white font-medium">
+              {summary.transactionCount}
+            </span>
+          </p>
+        </div>
       </div>
-    </div>
+    </PageTransition>
   );
 }

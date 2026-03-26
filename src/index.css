@@ -1,1 +1,9 @@
 @import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+button,
+a,
+[role='button'] {
+  cursor: pointer;
+}

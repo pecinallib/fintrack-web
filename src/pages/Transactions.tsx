@@ -5,6 +5,8 @@ import type { Transaction, TransactionRequest } from '../types/transaction';
 import type { Category } from '../types/transaction';
 import { getErrorMessage } from '../utils/getErrorMessage';
 import TransactionModal from '../components/TransactionModal';
+import PageHead from '../components/PageHead';
+import PageTransition from '../components/PageTransition';
 
 export default function Transactions() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -77,91 +79,108 @@ export default function Transactions() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-gray-400">Carregando...</p>
+        <p className="text-gray-500 dark:text-gray-400">Carregando...</p>
       </div>
     );
   }
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Transações</h1>
-        <button
-          onClick={openCreate}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors"
-        >
-          + Nova
-        </button>
+    <PageTransition>
+      <div>
+        <PageHead
+          title="Transações"
+          description="Gerencie suas receitas e despesas"
+        />
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Transações
+          </h1>
+          <button
+            onClick={openCreate}
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors"
+          >
+            + Nova
+          </button>
+        </div>
+
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg mb-4 text-sm">
+            {error}
+          </div>
+        )}
+
+        {transactions.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              Nenhuma transação ainda
+            </p>
+            <p className="text-gray-400 dark:text-gray-500 mt-1">
+              Clique em "+ Nova" para começar
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {transactions.map((tx) => (
+              <div
+                key={tx.id}
+                className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-between shadow-sm transition-colors"
+              >
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-gray-900 dark:text-white font-medium">
+                      {tx.title}
+                    </h3>
+                    {tx.category && (
+                      <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                        {tx.category.name}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
+                    {formatDate(tx.createdAt)}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <span
+                    className={`font-semibold ${
+                      tx.type === 'income'
+                        ? 'text-green-500 dark:text-green-400'
+                        : 'text-red-500 dark:text-red-400'
+                    }`}
+                  >
+                    {tx.type === 'income' ? '+' : '-'}{' '}
+                    {formatCurrency(tx.amount)}
+                  </span>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => openEdit(tx)}
+                      className="text-gray-400 hover:text-indigo-400 transition-colors text-sm"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDelete(tx.id)}
+                      className="text-gray-400 hover:text-red-400 transition-colors text-sm"
+                    >
+                      Deletar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <TransactionModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onSave={handleSave}
+          categories={categories}
+          transaction={editing}
+        />
       </div>
-
-      {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg mb-4 text-sm">
-          {error}
-        </div>
-      )}
-
-      {transactions.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-400 text-lg">Nenhuma transação ainda</p>
-          <p className="text-gray-500 mt-1">Clique em "+ Nova" para começar</p>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {transactions.map((tx) => (
-            <div
-              key={tx.id}
-              className="bg-gray-800 rounded-xl p-4 flex items-center justify-between"
-            >
-              <div className="flex-1">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-white font-medium">{tx.title}</h3>
-                  {tx.category && (
-                    <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">
-                      {tx.category.name}
-                    </span>
-                  )}
-                </div>
-                <p className="text-gray-500 text-sm mt-1">
-                  {formatDate(tx.createdAt)}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <span
-                  className={`font-semibold ${
-                    tx.type === 'income' ? 'text-green-400' : 'text-red-400'
-                  }`}
-                >
-                  {tx.type === 'income' ? '+' : '-'} {formatCurrency(tx.amount)}
-                </span>
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => openEdit(tx)}
-                    className="text-gray-400 hover:text-indigo-400 transition-colors text-sm"
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => handleDelete(tx.id)}
-                    className="text-gray-400 hover:text-red-400 transition-colors text-sm"
-                  >
-                    Deletar
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <TransactionModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onSave={handleSave}
-        categories={categories}
-        transaction={editing}
-      />
-    </div>
+    </PageTransition>
   );
 }
