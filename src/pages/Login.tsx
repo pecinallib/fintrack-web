@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { getErrorMessage } from '../utils/getErrorMessage';
+import PageHead from '../components/PageHead';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -29,6 +30,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
+      <PageHead title="Login" description="Faça login na sua conta" />
       <div className="w-full max-w-md bg-gray-800 rounded-2xl p-8 shadow-lg">
         <h1 className="text-2xl font-bold text-white text-center mb-2">
           FinTrack

@@ -5,6 +5,7 @@ import type { Transaction, TransactionRequest } from '../types/transaction';
 import type { Category } from '../types/transaction';
 import { getErrorMessage } from '../utils/getErrorMessage';
 import TransactionModal from '../components/TransactionModal';
+import PageHead from '../components/PageHead';
 
 export default function Transactions() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -84,6 +85,10 @@ export default function Transactions() {
 
   return (
     <div>
+      <PageHead
+        title="Transações"
+        description="Gerencie suas receitas e despesas"
+      />
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-white">Transações</h1>
         <button

@@ -3,6 +3,7 @@ import * as categoriesService from '../services/categories';
 import type { Category } from '../types/transaction';
 import { getErrorMessage } from '../utils/getErrorMessage';
 import CategoryModal from '../components/CategoryModal';
+import PageHead from '../components/PageHead';
 
 export default function Categories() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -66,6 +67,7 @@ export default function Categories() {
 
   return (
     <div>
+      <PageHead title="Categorias" description="Gerencie suas categorias" />
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-white">Categorias</h1>
         <button

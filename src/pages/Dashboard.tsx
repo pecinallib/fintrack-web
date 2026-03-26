@@ -13,6 +13,7 @@ import {
 import * as summaryService from '../services/summary';
 import type { Summary } from '../services/summary';
 import { getErrorMessage } from '../utils/getErrorMessage';
+import PageHead from '../components/PageHead';
 
 const COLORS = [
   '#6366f1',
@@ -93,6 +94,7 @@ export default function Dashboard() {
 
   return (
     <div>
+      <PageHead title="Dashboard" description="Resumo das suas finanças" />
       <h1 className="text-2xl font-bold text-white mb-6">Dashboard</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
