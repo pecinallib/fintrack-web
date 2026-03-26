@@ -3,6 +3,8 @@ import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Transactions from './pages/Transactions';
+import Layout from './components/Layout';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { signed, loading } = useAuth();
@@ -32,14 +34,12 @@ function AppRoutes() {
         path="/"
         element={
           <PrivateRoute>
-            <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-              <h1 className="text-3xl font-bold text-white">
-                Dashboard (em breve)
-              </h1>
-            </div>
+            <Layout />
           </PrivateRoute>
         }
-      />
+      >
+        <Route index element={<Transactions />} />
+      </Route>
     </Routes>
   );
 }
