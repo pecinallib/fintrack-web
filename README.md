@@ -10,7 +10,7 @@ Dashboard de finanças pessoais — visualize e gerencie suas receitas e despesa
 
 ## 📋 Sobre
 
-Frontend do FinTrack — uma aplicação completa para controle de finanças pessoais. Inclui autenticação, dashboard com gráficos interativos, CRUD de transações e categorias, e suporte a Dark/Light mode. Construída com React moderno, TypeScript e Tailwind CSS.
+Frontend do FinTrack — uma aplicação completa para controle de finanças pessoais. Inclui autenticação, dashboard com gráficos interativos e filtro por período, CRUD de transações com filtros avançados, CRUD de categorias, histórico de ações, e suporte a Dark/Light mode. Construída com React moderno, TypeScript e Tailwind CSS.
 
 ## 🚀 Tecnologias
 
@@ -26,18 +26,22 @@ Frontend do FinTrack — uma aplicação completa para controle de finanças pes
 ## ✨ Funcionalidades
 
 - **Autenticação** — Login e cadastro com persistência de sessão
-- **Dashboard** — Cards de resumo, gráfico de barras (receitas vs despesas) e gráfico de pizza (despesas por categoria)
-- **Transações** — CRUD completo com modal de criação/edição, valores em BRL e filtro por categoria
-- **Categorias** — CRUD completo para organizar transações
+- **Dashboard** — Cards de resumo, gráfico de barras (receitas vs despesas), gráfico de pizza (despesas por categoria) e filtro por período
+- **Transações** — CRUD completo com modal, valores em BRL e filtros avançados (pesquisa por título, tipo, categoria e período)
+- **Categorias** — CRUD completo com verificação de duplicidade case-insensitive
+- **Histórico** — Últimas 20 ações com badges coloridos por tipo (criar, editar, deletar) e detalhes descritivos
 - **Dark/Light Mode** — Alternância de tema com persistência no localStorage
 - **Animações** — Transições de página, animações nos cards e modais com Framer Motion
 - **Rotas protegidas** — Redirecionamento automático para login quando não autenticado
-- **Responsivo** — Layout adaptado para desktop e mobile
+- **Responsivo** — Menu hambúrguer com painel lateral abaixo de 768px
+- **UX** — Modais fecham ao clicar fora, títulos dinâmicos por página, cursor pointer automático
 
 ## 📁 Estrutura do Projeto
 
 ```
 src/
+├── assets/            # Imagens e recursos estáticos
+│   └── logo.png
 ├── components/        # Componentes reutilizáveis
 │   ├── AnimatedCard.tsx
 │   ├── CategoryModal.tsx
@@ -54,17 +58,20 @@ src/
 │   ├── useAuth.ts
 │   └── useTheme.ts
 ├── pages/             # Páginas da aplicação
+│   ├── Activity.tsx
 │   ├── Categories.tsx
 │   ├── Dashboard.tsx
 │   ├── Login.tsx
 │   ├── Register.tsx
 │   └── Transactions.tsx
 ├── services/          # Comunicação com a API
+│   ├── activity.ts
 │   ├── api.ts
 │   ├── categories.ts
 │   ├── summary.ts
 │   └── transactions.ts
 ├── types/             # Tipagens TypeScript
+│   ├── activity.ts
 │   ├── auth.ts
 │   └── transaction.ts
 ├── utils/             # Utilitários
@@ -113,7 +120,9 @@ A aplicação inicia em `http://localhost:5173`.
 2. Cadastre uma conta em "Cadastre-se"
 3. Crie categorias em "Categorias" (ex: Alimentação, Transporte, Moradia)
 4. Adicione transações em "Transações" com receitas e despesas
-5. Visualize o resumo no "Dashboard"
+5. Use os filtros para pesquisar por título, tipo, categoria ou período
+6. Visualize o resumo no "Dashboard" com filtro de data
+7. Acompanhe todas as ações em "Histórico"
 
 ## 🔗 Backend
 
