@@ -17,6 +17,9 @@ export default function Layout() {
             <h1 className="text-xl font-bold text-white">FinTrack</h1>
             <nav className="flex gap-4">
               <NavLink to="/" className={linkClass} end>
+                Dashboard
+              </NavLink>
+              <NavLink to="/transactions" className={linkClass}>
                 Transações
               </NavLink>
               <NavLink to="/categories" className={linkClass}>
