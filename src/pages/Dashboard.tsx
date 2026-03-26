@@ -210,6 +210,7 @@ export default function Dashboard() {
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Receitas vs Despesas
                 </h2>
+
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart
                     data={[
@@ -239,6 +240,12 @@ export default function Dashboard() {
                     <Tooltip
                       contentStyle={tooltipStyle}
                       formatter={(value) => formatCurrency(Number(value))}
+                      cursor={{
+                        fill:
+                          theme === 'dark'
+                            ? 'rgba(255,255,255,0.06)'
+                            : 'rgba(0,0,0,0.06)',
+                      }}
                     />
                     <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                       <Cell fill="#22c55e" />
