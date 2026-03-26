@@ -34,6 +34,9 @@ export default function Layout() {
               <NavLink to="/categories" className={linkClass}>
                 Categorias
               </NavLink>
+              <NavLink to="/activity" className={linkClass}>
+                Histórico
+              </NavLink>
             </nav>
           </div>
           <div className="flex items-center gap-4">
