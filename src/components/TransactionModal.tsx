@@ -71,6 +71,7 @@ export default function TransactionModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
+          onClick={onClose}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -78,6 +79,7 @@ export default function TransactionModal({
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg transition-colors"
+            onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
               {transaction ? 'Editar Transação' : 'Nova Transação'}
