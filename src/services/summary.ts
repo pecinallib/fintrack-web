@@ -8,7 +8,15 @@ export interface Summary {
   expensesByCategory: Record<string, number>;
 }
 
-export async function getSummary(): Promise<Summary> {
-  const response = await api.get<Summary>('/transactions/summary');
+export async function getSummary(
+  dateFrom?: string,
+  dateTo?: string,
+): Promise<Summary> {
+  const params: Record<string, string> = {};
+
+  if (dateFrom) params.dateFrom = dateFrom;
+  if (dateTo) params.dateTo = dateTo;
+
+  const response = await api.get<Summary>('/transactions/summary', { params });
   return response.data;
 }
