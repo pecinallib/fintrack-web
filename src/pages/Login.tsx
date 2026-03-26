@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { getErrorMessage } from '../utils/getErrorMessage';
 import PageHead from '../components/PageHead';
 import PageTransition from '../components/PageTransition';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -31,13 +32,18 @@ export default function Login() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center px-4 transition-colors">
         <PageHead title="Login" description="Faça login na sua conta" />
-        <div className="w-full max-w-md bg-gray-800 rounded-2xl p-8 shadow-lg">
-          <h1 className="text-2xl font-bold text-white text-center mb-2">
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
+        <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg transition-colors">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-2">
             FinTrack
           </h1>
-          <p className="text-gray-400 text-center mb-8">Entre na sua conta</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center mb-8">
+            Entre na sua conta
+          </p>
 
           {error && (
             <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg mb-6 text-sm">
@@ -47,7 +53,7 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Email
               </label>
               <input
@@ -55,13 +61,13 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                 placeholder="seu@email.com"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Senha
               </label>
               <input
@@ -69,7 +75,7 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                 placeholder="••••••"
               />
             </div>
@@ -83,7 +89,7 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="text-gray-400 text-center mt-6 text-sm">
+          <p className="text-gray-500 dark:text-gray-400 text-center mt-6 text-sm">
             Não tem conta?{' '}
             <Link
               to="/register"

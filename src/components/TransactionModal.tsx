@@ -77,9 +77,9 @@ export default function TransactionModal({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="w-full max-w-md bg-gray-800 rounded-2xl p-6 shadow-lg"
+            className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg transition-colors"
           >
-            <h2 className="text-xl font-bold text-white mb-6">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
               {transaction ? 'Editar Transação' : 'Nova Transação'}
             </h2>
 
@@ -91,7 +91,7 @@ export default function TransactionModal({
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Título
                 </label>
                 <input
@@ -99,13 +99,13 @@ export default function TransactionModal({
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                   placeholder="Ex: Salário, Aluguel..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Valor
                 </label>
                 <input
@@ -115,13 +115,13 @@ export default function TransactionModal({
                   required
                   min="0.01"
                   step="0.01"
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                   placeholder="0.00"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Tipo
                 </label>
                 <div className="flex gap-3">
@@ -131,7 +131,7 @@ export default function TransactionModal({
                     className={`flex-1 py-3 rounded-lg font-semibold transition-colors ${
                       type === 'income'
                         ? 'bg-green-600 text-white'
-                        : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
                     Receita
@@ -142,7 +142,7 @@ export default function TransactionModal({
                     className={`flex-1 py-3 rounded-lg font-semibold transition-colors ${
                       type === 'expense'
                         ? 'bg-red-600 text-white'
-                        : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
                     Despesa
@@ -151,13 +151,13 @@ export default function TransactionModal({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Categoria
                 </label>
                 <select
                   value={categoryId}
                   onChange={(e) => setCategoryId(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                 >
                   <option value="">Sem categoria</option>
                   {categories.map((cat) => (
@@ -172,7 +172,7 @@ export default function TransactionModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-3 bg-gray-700 hover:bg-gray-600 text-gray-300 font-semibold rounded-lg transition-colors"
+                  className="flex-1 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg transition-colors"
                 >
                   Cancelar
                 </button>

@@ -61,7 +61,7 @@ export default function Categories() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-gray-400">Carregando...</p>
+        <p className="text-gray-500 dark:text-gray-400">Carregando...</p>
       </div>
     );
   }
@@ -71,7 +71,9 @@ export default function Categories() {
       <div>
         <PageHead title="Categorias" description="Gerencie suas categorias" />
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-white">Categorias</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Categorias
+          </h1>
           <button
             onClick={openCreate}
             className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors"
@@ -88,8 +90,10 @@ export default function Categories() {
 
         {categories.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-400 text-lg">Nenhuma categoria ainda</p>
-            <p className="text-gray-500 mt-1">
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              Nenhuma categoria ainda
+            </p>
+            <p className="text-gray-400 dark:text-gray-500 mt-1">
               Clique em "+ Nova" para começar
             </p>
           </div>
@@ -98,9 +102,11 @@ export default function Categories() {
             {categories.map((cat) => (
               <div
                 key={cat.id}
-                className="bg-gray-800 rounded-xl p-4 flex items-center justify-between"
+                className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-between shadow-sm transition-colors"
               >
-                <h3 className="text-white font-medium">{cat.name}</h3>
+                <h3 className="text-gray-900 dark:text-white font-medium">
+                  {cat.name}
+                </h3>
                 <div className="flex gap-2">
                   <button
                     onClick={() => openEdit(cat)}

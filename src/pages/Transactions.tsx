@@ -79,7 +79,7 @@ export default function Transactions() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-gray-400">Carregando...</p>
+        <p className="text-gray-500 dark:text-gray-400">Carregando...</p>
       </div>
     );
   }
@@ -92,7 +92,9 @@ export default function Transactions() {
           description="Gerencie suas receitas e despesas"
         />
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-white">Transações</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Transações
+          </h1>
           <button
             onClick={openCreate}
             className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors"
@@ -109,8 +111,10 @@ export default function Transactions() {
 
         {transactions.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-400 text-lg">Nenhuma transação ainda</p>
-            <p className="text-gray-500 mt-1">
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              Nenhuma transação ainda
+            </p>
+            <p className="text-gray-400 dark:text-gray-500 mt-1">
               Clique em "+ Nova" para começar
             </p>
           </div>
@@ -119,18 +123,20 @@ export default function Transactions() {
             {transactions.map((tx) => (
               <div
                 key={tx.id}
-                className="bg-gray-800 rounded-xl p-4 flex items-center justify-between"
+                className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-between shadow-sm transition-colors"
               >
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
-                    <h3 className="text-white font-medium">{tx.title}</h3>
+                    <h3 className="text-gray-900 dark:text-white font-medium">
+                      {tx.title}
+                    </h3>
                     {tx.category && (
-                      <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">
+                      <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
                         {tx.category.name}
                       </span>
                     )}
                   </div>
-                  <p className="text-gray-500 text-sm mt-1">
+                  <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
                     {formatDate(tx.createdAt)}
                   </p>
                 </div>
@@ -138,7 +144,9 @@ export default function Transactions() {
                 <div className="flex items-center gap-4">
                   <span
                     className={`font-semibold ${
-                      tx.type === 'income' ? 'text-green-400' : 'text-red-400'
+                      tx.type === 'income'
+                        ? 'text-green-500 dark:text-green-400'
+                        : 'text-red-500 dark:text-red-400'
                     }`}
                   >
                     {tx.type === 'income' ? '+' : '-'}{' '}
