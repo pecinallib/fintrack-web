@@ -4,6 +4,7 @@ import { useAuth } from './hooks/useAuth';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Transactions from './pages/Transactions';
+import Categories from './pages/Categories';
 import Layout from './components/Layout';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -39,6 +40,7 @@ function AppRoutes() {
         }
       >
         <Route index element={<Transactions />} />
+        <Route path="categories" element={<Categories />} />
       </Route>
     </Routes>
   );

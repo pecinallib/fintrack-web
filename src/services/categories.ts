@@ -5,3 +5,17 @@ export async function getAll(): Promise<Category[]> {
   const response = await api.get<Category[]>('/categories');
   return response.data;
 }
+
+export async function create(name: string): Promise<Category> {
+  const response = await api.post<Category>('/categories', { name });
+  return response.data;
+}
+
+export async function update(id: number, name: string): Promise<Category> {
+  const response = await api.put<Category>(`/categories/${id}`, { name });
+  return response.data;
+}
+
+export async function remove(id: number): Promise<void> {
+  await api.delete(`/categories/${id}`);
+}
