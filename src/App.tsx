@@ -3,6 +3,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
 import Categories from './pages/Categories';
 import Layout from './components/Layout';
@@ -39,7 +40,8 @@ function AppRoutes() {
           </PrivateRoute>
         }
       >
-        <Route index element={<Transactions />} />
+        <Route index element={<Dashboard />} />
+        <Route path="transactions" element={<Transactions />} />
         <Route path="categories" element={<Categories />} />
       </Route>
     </Routes>
