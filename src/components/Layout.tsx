@@ -93,6 +93,9 @@ export default function Layout() {
               <NavLink to="/activity" className={linkClass}>
                 Histórico
               </NavLink>
+              <NavLink to="/calculator" className={linkClass}>
+                Calculadora
+              </NavLink>
             </nav>
           </div>
 
@@ -190,6 +193,9 @@ export default function Layout() {
               </NavLink>
               <NavLink to="/activity" className={mobileLinkClass}>
                 Histórico
+              </NavLink>
+              <NavLink to="/calculator" className={mobileLinkClass}>
+                Calculadora
               </NavLink>
             </nav>
 

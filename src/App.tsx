@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
 import Categories from './pages/Categories';
+import Calculator from './pages/Calculator';
 import Layout from './components/Layout';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -46,6 +47,7 @@ function AppRoutes() {
         <Route path="transactions" element={<Transactions />} />
         <Route path="categories" element={<Categories />} />
         <Route path="activity" element={<Activity />} />
+        <Route path="calculator" element={<Calculator />} />
       </Route>
     </Routes>
   );
