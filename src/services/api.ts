@@ -17,7 +17,9 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const isAuthRoute = error.config?.url?.startsWith('/auth');
+
+    if (error.response?.status === 401 && !isAuthRoute) {
       localStorage.removeItem('fintrack:token');
       localStorage.removeItem('fintrack:user');
       window.location.href = '/login';
