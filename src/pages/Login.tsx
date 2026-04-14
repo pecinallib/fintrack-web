@@ -88,7 +88,14 @@ export default function Login() {
               {loading ? 'Entrando...' : 'Entrar'}
             </button>
           </form>
-
+          <div className="flex justify-end">
+            <Link
+              to="/forgot-password"
+              className="text-indigo-400 hover:text-indigo-300 text-sm"
+            >
+              Esqueceu a senha?
+            </Link>
+          </div>
           <p className="text-gray-500 dark:text-gray-400 text-center mt-6 text-sm">
             Não tem conta?{' '}
             <Link
