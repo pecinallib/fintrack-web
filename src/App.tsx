@@ -10,6 +10,8 @@ import Transactions from './pages/Transactions';
 import Categories from './pages/Categories';
 import Calculator from './pages/Calculator';
 import Layout from './components/Layout';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { signed, loading } = useAuth();
@@ -35,6 +37,11 @@ function AppRoutes() {
         path="/register"
         element={signed ? <Navigate to="/" /> : <Register />}
       />
+      <Route
+        path="/forgot-password"
+        element={signed ? <Navigate to="/" /> : <ForgotPassword />}
+      />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route
         path="/"
         element={
