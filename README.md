@@ -31,6 +31,8 @@ Frontend do FinTrack — uma aplicação completa para controle de finanças pes
 - **Categorias** — CRUD completo com verificação de duplicidade case-insensitive
 - **Histórico** — Últimas 20 ações com badges coloridos por tipo (criar, editar, deletar) e detalhes descritivos
 - **Dark/Light Mode** — Alternância de tema com persistência no localStorage
+- **Recuperação de Senha** — Fluxo completo de "Esqueceu a senha?" com envio de email e redefinição via token
+- **Calculadora** — Calculadora de juros simples e compostos integrada
 - **Animações** — Transições de página, animações nos cards e modais com Framer Motion
 - **Rotas protegidas** — Redirecionamento automático para login quando não autenticado
 - **Responsivo** — Menu hambúrguer com painel lateral abaixo de 768px
@@ -59,10 +61,13 @@ src/
 │   └── useTheme.ts
 ├── pages/             # Páginas da aplicação
 │   ├── Activity.tsx
+│   ├── Calculator.tsx
 │   ├── Categories.tsx
 │   ├── Dashboard.tsx
+│   ├── ForgotPassword.tsx
 │   ├── Login.tsx
 │   ├── Register.tsx
+│   ├── ResetPassword.tsx
 │   └── Transactions.tsx
 ├── services/          # Comunicação com a API
 │   ├── activity.ts
